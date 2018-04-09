@@ -4,7 +4,7 @@ A Vue 2 component for defining start and end of slice of specified length
 
 <img
   width="500"
-  src="./demo/ScrubSlice.png"
+  src="./demo/images/ScrubSlice.png"
   alt="Screenshot of a ScrubSlice component"
   title="Screenshot of a ScrubSlice component"
 />
