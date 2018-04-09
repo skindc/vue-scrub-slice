@@ -135,13 +135,15 @@
       onDragStop (e) {
         //Detect if has event listener
         //if so emit event rather than set model
-        this.sliceStartValue = e.state.sliceStartValue
-        this.sliceEndValue = e.state.sliceEndValue
-        this.sliceLength = e.state.sliceLength
-        this.dragging = e.state.dragging
-        this.sliceHeadValue = e.state.sliceHeadValue
-        this.$emit('dragend')
-        this.$emit('change', {...e.state})
+        if(this.$listeners.change) {
+          this.$emit('change', {...e.state})
+        } else {
+          this.sliceStartValue = e.state.sliceStartValue
+          this.sliceEndValue = e.state.sliceEndValue
+          this.sliceLength = e.state.sliceLength
+          this.dragging = e.state.dragging
+          this.sliceHeadValue = e.state.sliceHeadValue
+        }
       }
     },
 
