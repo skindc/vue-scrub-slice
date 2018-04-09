@@ -1,0 +1,13 @@
+{
+  "presets": [
+    ["@babel/preset-stage-3", {
+      "useBuiltIns": false,
+      "targets": {
+        "browsers": ["last 2 versions", "safari >= 7"]
+      }
+    }],
+  ],
+  "plugins": [
+    "@babel/plugin-transform-runtime"
+  ]
+}

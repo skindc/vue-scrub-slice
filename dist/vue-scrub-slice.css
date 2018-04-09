@@ -1,0 +1,95 @@
+.vss-slice-start-handle {
+  position: absolute;
+  width: 0.5em;
+  height: 1em; }
+  .vss-slice-start-handle:after {
+    content: "";
+    position: absolute;
+    width: .5em;
+    height: 1em;
+    border-bottom-left-radius: 1em;
+    background: #DDD;
+    cursor: pointer;
+    left: -.5em;
+    top: 1em; }
+  .vss-slice-start-handle:before {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 2em;
+    background: #DDD;
+    left: 0; }
+
+.vss-slice-end-handle {
+  position: absolute;
+  width: 0.5em;
+  height: 1em; }
+  .vss-slice-end-handle:after {
+    content: "";
+    position: absolute;
+    width: .5em;
+    height: 1em;
+    border-bottom-right-radius: 1em;
+    background: #DDD;
+    cursor: pointer;
+    left: 0;
+    top: 1em; }
+  .vss-slice-end-handle:before {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 2em;
+    background: #DDD;
+    left: 0; }
+
+.vss-slice-head-handle {
+  position: absolute;
+  width: 1em;
+  height: 1em; }
+  .vss-slice-head-handle:after {
+    content: "";
+    position: absolute;
+    width: .5em;
+    height: 1em;
+    background: #CFC;
+    cursor: pointer;
+    left: -.25em;
+    top: 0; }
+  .vss-slice-head-handle:before {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 2em;
+    background: #CFC;
+    left: 0; }
+
+.media-slice-bar {
+  position: relative;
+  width: 100%; }
+  .media-slice-bar.dragging {
+    cursor: pointer; }
+
+.vss-bar-slice {
+  position: absolute;
+  height: 2px;
+  top: 50%;
+  background: #CFC; }
+
+.vss-bar-whole {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  top: 50%;
+  background: #CCC; }
+
+.tb-ma-controller {
+  width: 100%;
+  min-height: 50px;
+  display: flex;
+  flex-flow: column;
+  padding: 10px; }
+
+.vss-scrub {
+  display: flex;
+  min-height: 2em;
+  margin: 10px; }
