@@ -285,4 +285,8 @@ var ScrubSlice = {
   }
 };
 
-export default ScrubSlice;
+module.exports = {
+  install: function install(Vue) {
+    Vue.component('scrub-slice', ScrubSlice);
+  }
+};
