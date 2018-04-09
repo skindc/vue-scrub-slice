@@ -110,7 +110,6 @@
         return ((this.sliceStartValue / this.totalLength) * 100) + "%"
       },
       endPosition () {
-        console.log('this.sliceEndValue : ', this.sliceEndValue)
         return ((this.sliceEndValue / this.totalLength) * 100) + "%"
       },
       sliced () {
@@ -161,31 +160,46 @@
         this.$emit('dragbegin')
       },
       onDrag(e) {
-        //Detect if has event listener
-        //if so emit event rather than set model
-        this.sliceStartValue = e.state.sliceStartValue
-        this.sliceEndValue = e.state.sliceEndValue
-        this.sliceLengthValue = e.state.sliceLengthValue
-        this.dragging = e.state.dragging
-        this.sliceHeadValue = e.state.sliceHeadValue
-        this.$emit('drag')
+        this.setValuesFromDragState(e.state)
       },
 
       onDragStop (e) {
-
+        this.setValuesFromDragState(e.state, true)
         //Detect if has event listener
         //if so emit event rather than set model
         //Question this for next release
-        /*if(this.$listeners.change) {
-          this.$emit('change', {...e.state})
-        } else {*/
-          this.sliceStartValue = e.state.sliceStartValue
-          this.sliceEndValue = e.state.sliceEndValue
-          this.sliceLengthValue = e.state.sliceLengthValue
-          this.dragging = e.state.dragging
-          this.sliceHeadValue = e.state.sliceHeadValue
-        //}
-        this.$emit('change', {...e.state})
+      },
+
+      setValuesFromDragState(state, emit = false) {
+        const {
+            sliceStartValue,
+            sliceStartPercent,
+            sliceEndValue,
+            sliceEndPercent,
+            sliceLengthValue,
+            sliceHeadValue,
+            dragging
+          } = state
+
+        this.sliceStartValue = sliceStartValue
+        this.sliceStartPercent = sliceStartPercent
+        this.sliceEndValue = sliceEndValue
+        this.sliceEndPercent = sliceEndPercent
+        this.sliceLengthValue = sliceLengthValue
+        this.sliceHeadValue = sliceHeadValue
+        this.dragging = dragging
+
+        if(emit) {
+          this.$emit('change', {
+            sliceStartValue,
+            sliceStartPercent,
+            sliceEndValue,
+            sliceEndPercent,
+            sliceLengthValue,
+            sliceHeadValue,
+            dragging
+          })
+        }
       }
     },
 

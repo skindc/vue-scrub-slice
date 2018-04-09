@@ -17,8 +17,6 @@ export function setValuesFromNewSliceStartPoint(percentage, state) {
 
 export function setValuesFromNewSliceEndPoint(percentage, state) {
 
-  console.log('state : ', state)
-
   //Ensure range boundaries do not exceed each other
   const maximum = state.sliceMaximum,
     minimum = Math.min(maximum, state.sliceMinimum),
