@@ -52,36 +52,45 @@ export default {
 
 ## Component Props
 
-Name             | Type                                     | Default  | About
-----             | ----                                     | -------  | -----
-totalLength      | Number                                   | 1000     | The total length to be sliced
-sliceMaximum     | Number                                   | 500      | The maximum value of the slice
-sliceMinimum     | Number                                   | 100      | The maximum value of the slice
-sliceSnap        | Number                                   | 1        | The snap point unit for movement of slice start and end
-sliceHeadSnap    | Number                                   | 1        | The snap point unit for movement of slice head
+Name               | Type                                     | Default  | About
+----               | ----                                     | -------  | -----
+totalLength        | Number                                   | 1000     | The total length to be sliced
+sliceMaximum       | Number                                   | 500      | The maximum value of the slice
+sliceMinimum       | Number                                   | 100      | The maximum value of the slice
+sliceStart         | Number                                   | 0        | The value of the slices's initial start position
+sliceEnd           | Number                                   | 500      | The value of the slices's initial end position
+sliceLength        | Number                                   | 500      | The value of the slices's initial length
+sliceSnap          | Number                                   | 1        | The snap point unit for movement of slice start and end
+sliceHeadSnap      | Number                                   | 1        | The snap point unit for movement of slice head
+
+It is important to note that is any of these values are set and contradict boundary values they will be changed internally to ensure they are valid against other model values.
+
+For example
+
+If sliceEnd is greater than sliceStart and sliceMaximum it will be reduced to fit in the slice boundary.
 
 ## State Properties
 
-Name             | Type                                     | Default  | About
-----             | ----                                     | -------  | -----
-totalLength      | Number                                   | 1000     | The total length to be sliced
-sliceMaximum     | Number                                   | 500      | The maximum value of the slice
-sliceMinimum     | Number                                   | 100      | The maximum value of the slice
-sliceSnap        | Number                                   | 1        | The snap point unit for movement of slice start and end
-sliceHeadSnap    | Number                                   | 1        | The snap point unit for movement of slice head
-sliceLength      | Number                                   | 500      | The length of of current slice
-sliceStartValue  | Number                                   | 0        | The value at which the slice starts
-sliceEndValue    | Number                                   | 500      | The value at which the slice ends
-sliceHead        | Number                                   | 0        | The value of the slice head position
+The state object that is the payload of the change events only includes the properties that are mutable internally
+
+Name               | Type                                     | About
+----               | ----                                     | -----
+sliceStartValue    | Number                                   | The value at which the slice now starts
+sliceStartPercent  | Number                                   | The percentage value at which the slice now starts
+sliceEndValue      | Number                                   | The value at which the slice now ends
+sliceStartPercent  | Number                                   | The percentage value at which the slice now ends
+sliceLengthValue   | Number                                   | The value of the slice's length
+sliceHeadValue     | Number                                   | The value of the slice head position
+dragging           | Boolean                                  | If any of the handles are being dragged
 
 
 ## Events
 
-Name        | Payload                                                | About
------       | -------                                                | -----
-dragbegin   | `Event`                                                | Emitted when any of the handles drag starts.
-dragend     | `Event`                                                | Emitted when any of the handles drag ends.
-change      | `State`                                                | Emitted when any of the handles drag ends.
+Name               | Payload           | About
+-----              | -------           | -----
+dragbegin          | `Event`           | Emitted when any of the handles drag starts.
+dragend            | `Event`           | Emitted when any of the handles drag ends.
+change             | `State`           | Emitted when mounted for real corrected values and when any of the handles drag ends.
 
 
 ## License
@@ -96,9 +105,7 @@ Released under [MIT license][1].
 * Push to the branch: git push origin my-new-feature
 * Submit a pull request :D
 
-## Roadmap
 
-• Change scrub and slice state to use ES7 Observables
 
 
 
