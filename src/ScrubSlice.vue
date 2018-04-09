@@ -34,6 +34,11 @@
 
   import {setMouseDragTracking, setTouchDragTracking} from './slice'
 
+  //Apply this on future release.
+  //const SLICE_ABS_MINIMUM = 1
+  //
+  //https://alligator.io/vuejs/component-lifecycle/
+
   export default {
     props: {
       totalLength: {
@@ -48,6 +53,18 @@
         type: Number,
         default: 100
       },
+      sliceStart: {
+        type: Number,
+        default: 0
+      },
+      sliceEnd: {
+        type: Number,
+        default: 500
+      },
+      sliceLength: {
+        type: Number,
+        default: 500
+      },
       sliceSnap: {
         type: Number,
         default: 1
@@ -58,12 +75,32 @@
       }
     },
     data() {
+
+      //We need to make sure any props that are set are controlled within the
+      //boundaries of the full length and maximum and minimum boaundaries
+
+      //Move all of this calculation into range module
+
+      //Values are at this time all resticted by the startValue
+      //Should we have some way of detecting if props have been changed
+      //Maybe have default of -1 so that sliceEnd or sliceLength can take presidence
+
+      //Except slice maximum and slice minimum they should always be set
+      //
+      const fitNumberInRange = (value, start, end) => {
+        return Math.max(start, Math.min(end, value))
+      }
+
+      const sliceStartValue = fitNumberInRange(this.sliceStart, 0, this.totalLength - this.sliceMinimum),
+        sliceEndValue = fitNumberInRange(this.sliceEnd, sliceStartValue + this.sliceMinimum, sliceStartValue + this.sliceMaximum),
+        sliceLengthValue = Math.min(this.sliceLength, sliceEndValue - sliceStartValue)
+
       return {
-        sliceStartValue: 0,
-        sliceStartPercent: 0,
-        sliceEndValue: Math.min(this.totalLength, this.sliceMaximum),
-        sliceEndPercent: this.sliceEndValue / this.totalLength,
-        sliceLength: Math.min(this.totalLength, this.sliceMaximum),
+        sliceStartValue: sliceStartValue,
+        sliceStartPercent: Math.round((sliceStartValue / this.totalLength) * 100),
+        sliceEndValue: sliceEndValue,
+        sliceEndPercent: Math.round((sliceEndValue / this.totalLength) * 100),
+        sliceLengthValue: sliceLengthValue,
         sliceHeadValue: 0,
         dragging: false
       }
@@ -73,6 +110,7 @@
         return ((this.sliceStartValue / this.totalLength) * 100) + "%"
       },
       endPosition () {
+        console.log('this.sliceEndValue : ', this.sliceEndValue)
         return ((this.sliceEndValue / this.totalLength) * 100) + "%"
       },
       sliced () {
@@ -104,7 +142,7 @@
           totalLength: this.totalLength,
           sliceMaximum: this.actualSliceMaximum,
           sliceMinimum: this.actualSliceMinimum,
-          sliceLength: this.sliceLength,
+          sliceLengthValue: this.sliceLengthValue,
           sliceSnap: this.actualSliceSnap,
           sliceStartValue: this.sliceStartValue,
           sliceStartPercent: this.sliceStartPercent,
@@ -127,24 +165,40 @@
         //if so emit event rather than set model
         this.sliceStartValue = e.state.sliceStartValue
         this.sliceEndValue = e.state.sliceEndValue
-        this.sliceLength = e.state.sliceLength
+        this.sliceLengthValue = e.state.sliceLengthValue
         this.dragging = e.state.dragging
         this.sliceHeadValue = e.state.sliceHeadValue
         this.$emit('drag')
       },
+
       onDragStop (e) {
+
         //Detect if has event listener
         //if so emit event rather than set model
-        if(this.$listeners.change) {
+        //Question this for next release
+        /*if(this.$listeners.change) {
           this.$emit('change', {...e.state})
-        } else {
+        } else {*/
           this.sliceStartValue = e.state.sliceStartValue
           this.sliceEndValue = e.state.sliceEndValue
-          this.sliceLength = e.state.sliceLength
+          this.sliceLengthValue = e.state.sliceLengthValue
           this.dragging = e.state.dragging
           this.sliceHeadValue = e.state.sliceHeadValue
-        }
+        //}
+        this.$emit('change', {...e.state})
       }
+    },
+
+    mounted() {
+      this.$emit('change', {
+        sliceStartValue: this.sliceStartValue,
+        sliceStartPercent: this.sliceStartPercent,
+        sliceEndValue: this.sliceEndValue,
+        sliceEndPercent: this.sliceEndPercent,
+        sliceLengthValue: this.sliceLengthValue,
+        sliceHeadValue: this.sliceHeadValue,
+        dragging: false
+      })
     },
 
     /**

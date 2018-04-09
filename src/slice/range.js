@@ -10,12 +10,14 @@ export function setValuesFromNewSliceStartPoint(percentage, state) {
     ...state,
     sliceStartValue: sliceStartPoint,
     sliceEndValue: Math.max(sliceStartPoint + state.sliceMinimum, sliceStartPoint + sliceLength),
-    sliceLength: sliceLength,
+    sliceLengthValue: sliceLength,
     sliceHeadValue: Math.min(sliceLength, state.sliceHeadValue)
   }
 }
 
 export function setValuesFromNewSliceEndPoint(percentage, state) {
+
+  console.log('state : ', state)
 
   //Ensure range boundaries do not exceed each other
   const maximum = state.sliceMaximum,
@@ -28,7 +30,7 @@ export function setValuesFromNewSliceEndPoint(percentage, state) {
     ...state,
     sliceStartValue: sliceStartValue,
     sliceEndValue: sliceEndPoint,
-    sliceLength: sliceLength,
+    sliceLengthValue: sliceLength,
     sliceHeadValue: Math.min(sliceLength, state.sliceHeadValue)
   }
 }
