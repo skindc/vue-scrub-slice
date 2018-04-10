@@ -42,7 +42,7 @@ test('Correct clip length when start move ', t => {
       totalLength: 100, // Total length is 100 units
       sliceMaximum: 80, // The clip can be a maximum of 80 units
       sliceMinimum: 30, // The clip can be a minimum of 30 units
-      sliceLength: 80, // The clip starts at its maximum 80 units
+      sliceLengthValue: 80, // The clip starts at its maximum 80 units
       sliceSnap: 1, // The clip change movements units are whole integers
       sliceStartValue: 0, // Clip is at start of full length
       sliceStartPercent: 0, // Currently not implemented
@@ -58,7 +58,7 @@ test('Correct clip length when start move ', t => {
       totalLength: 100,
       sliceMaximum: 80,
       sliceMinimum: 30,
-      sliceLength: 70, // The clip should reduce by 10 units ( 0.1 precent of total)
+      sliceLengthValue: 70, // The clip should reduce by 10 units ( 0.1 precent of total)
       sliceSnap: 1,
       sliceStartValue: 10, // The clip start moved is at 10 units (0.1 precent of total)
       sliceStartPercent: 0, // Currently not implemented
@@ -75,7 +75,7 @@ test('Correct clip length when start move ', t => {
       totalLength: 100,
       sliceMaximum: 80,
       sliceMinimum: 30,
-      sliceLength: 30,
+      sliceLengthValue: 30,
       sliceSnap: 1,
       sliceStartValue: 60, //Should be at 60 as per 0.6 percentage argument
       sliceStartPercent: 0,
@@ -92,7 +92,7 @@ test('Correct clip length when start move ', t => {
       totalLength: 100,
       sliceMaximum: 80,
       sliceMinimum: 30,
-      sliceLength: 30,
+      sliceLengthValue: 30,
       sliceSnap: 1,
       sliceStartValue: 70, //Should be at 70 as .9 percent will exceed length and minimum
       sliceStartPercent: 0,
@@ -111,7 +111,7 @@ test('Correct clip length when start move ', t => {
       totalLength: 100,
       sliceMaximum: 80,
       sliceMinimum: 30,
-      sliceLength: 30,
+      sliceLengthValue: 30,
       sliceSnap: 1,
       sliceStartValue: 70, //we start at 70 as this is the maximum start can be with max and min range
       sliceStartPercent: 0,
@@ -125,7 +125,7 @@ test('Correct clip length when start move ', t => {
       totalLength: 100,
       sliceMaximum: 80,
       sliceMinimum: 30,
-      sliceLength: 50,
+      sliceLengthValue: 50,
       sliceSnap: 1,
       sliceStartValue: 50, //Should be at 60 as per 0.6 percentage argument
       sliceStartPercent: 0,
@@ -143,7 +143,7 @@ test('Correct clip length when start move ', t => {
       totalLength: 100,
       sliceMaximum: 80,
       sliceMinimum: 30,
-      sliceLength: 80,
+      sliceLengthValue: 80,
       sliceSnap: 1,
       sliceStartValue: 10, //Should be at 20 as per 0.2 percentage argument
       sliceStartPercent: 0,
